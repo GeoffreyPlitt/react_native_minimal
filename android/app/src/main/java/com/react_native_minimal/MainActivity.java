@@ -1,6 +1,9 @@
 package com.react_native_minimal;
 
 import com.facebook.react.ReactActivity;
+import android.os.Bundle;
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends ReactActivity {
 
@@ -11,5 +14,14 @@ public class MainActivity extends ReactActivity {
     @Override
     protected String getMainComponentName() {
         return "react_native_minimal";
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // Fabrics
+        Fabric.with(this, new Crashlytics());
+
     }
 }
