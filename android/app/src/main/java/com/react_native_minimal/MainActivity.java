@@ -1,6 +1,7 @@
 package com.react_native_minimal;
 
 import com.facebook.react.ReactActivity;
+import com.smixx.fabric.FabricPackage;
 import android.os.Bundle;
 import com.crashlytics.android.Crashlytics;
 import io.fabric.sdk.android.Fabric;

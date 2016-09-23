@@ -12,6 +12,8 @@ import {
   View
 } from 'react-native';
 
+var Fabric = require('react-native-fabric');
+
 class react_native_minimal extends Component {
   render() {
     return (
