@@ -13,6 +13,8 @@ import {
 } from 'react-native';
 
 var Fabric = require('react-native-fabric')
+var { Crashlytics } = Fabric;
+Crashlytics.crash();
 
 class react_native_minimal extends Component {
   render() {
