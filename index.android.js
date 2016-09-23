@@ -9,27 +9,22 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  TouchableHighlight
 } from 'react-native';
 
 var Fabric = require('react-native-fabric')
 var { Crashlytics } = Fabric;
-Crashlytics.crash();
 
 class react_native_minimal extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
+        <TouchableHighlight onPress={()=> Crashlytics.crash()}>
+          <Text style={styles.instructions}>
+            TOUCH ME TO CRASH
+          </Text>
+        </TouchableHighlight>
       </View>
     );
   }
