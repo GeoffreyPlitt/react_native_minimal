@@ -44,6 +44,30 @@ export function upload_xhr(uri) {
 
 export function upload_fetch(uri) {
   return new Promise( (resolve, reject) => {
-    resolve('coming soon')
+    let timestamp = (Date.now() / 1000 | 0).toString()
+    let hash_string = 'timestamp=' + timestamp + cloudinary_config.api_secret
+    let signature = CryptoJS.SHA1(hash_string).toString()
+    let upload_url = 'https://api.cloudinary.com/v1_1/' + cloudinary_config.cloud_name + `/image/upload`
+
+    const formdata = new FormData()
+    formdata.append('file', {uri: `file://${uri}`, type: 'image/jpg', name: 'upload.jpg'})
+    formdata.append('timestamp', timestamp)
+    formdata.append('api_key', cloudinary_config.api_key)
+    formdata.append('signature', signature)
+
+    fetch(upload_url, {
+      method: 'POST',
+      body: formdata
+    })
+    .then((response) => {
+      if(response.status!==200) return reject(response.statusText)
+      // else
+      response.json()
+      .then((result) => {
+        resolve(result)
+      })
+      .catch(reject)
+    })
+    .catch(reject)
   })
 }

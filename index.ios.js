@@ -27,6 +27,11 @@ const go = (method) => {
           .catch(Alert.alert)
         break
       case 'fetch':
+        upload_fetch(response.uri)
+        .then( (result) => {
+          Alert.alert(`Success: ${result.secure_url}`)
+        })
+        .catch(Alert.alert)
         break
     }
   })
