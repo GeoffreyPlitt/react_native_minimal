@@ -9,23 +9,43 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  TouchableHighlight,
+  Alert
 } from 'react-native';
+import ImagePicker from 'react-native-image-picker'
+import {upload_xhr, upload_fetch} from './src/cloudinary'
+
+const go = (method) => {
+  ImagePicker.showImagePicker({}, (response) => {
+    switch(method) {
+      case 'xhr':
+          upload_xhr(response.uri)
+          .then( (result) => {
+            Alert.alert(`Success: ${result.secure_url}`)
+          })
+          .catch(Alert.alert)
+        break
+      case 'fetch':
+        break
+    }
+  })
+}
 
 class react_native_minimal extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
+      <TouchableHighlight onPress={ () => go('xhr') }>
+          <Text style={styles.instructions}>
+            Choose photo and upload via XHR
+          </Text>
+      </TouchableHighlight>
+      <TouchableHighlight onPress={ () => go('fetch') }>
+          <Text style={styles.instructions}>
+            Choose photo and upload via FETCH
+          </Text>
+      </TouchableHighlight>
       </View>
     );
   }

@@ -42,3 +42,5 @@ android/keystores/debug.keystore
 
 android/build
 ios/build
+
+env.js
