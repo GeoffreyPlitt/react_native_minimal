@@ -9,25 +9,25 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  TouchableHighlight
 } from 'react-native';
 
 class react_native_minimal extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
+        <TouchableHighlight onPress={this.onPress}>
+          <Text style={styles.instructions}>
+            Click me
+          </Text>
+        </TouchableHighlight>
       </View>
     );
+  }
+
+  onPress() {
+    console.log('gp1')
   }
 }
 
