@@ -3,9 +3,11 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "clean": "rm -rf ios/build; rm -rf ios/build; rm -rf android/build; rm -rf android/app/build; rm -rf $TMPDIR/react* ; rm -f ios/main.jsbundle; rm -rf node_modules; rm yarn.lock || true; npm cache clean",
     "start": "node node_modules/react-native/local-cli/cli.js start"
   },
   "dependencies": {
+    "analytics-react-native": "^1.0.1",
     "react": "15.3.2",
     "react-native": "0.37.0"
   }
