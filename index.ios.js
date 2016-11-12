@@ -13,6 +13,9 @@ import {
   TouchableHighlight
 } from 'react-native';
 
+import Analytics from 'analytics-react-native';
+const analytics = new Analytics('API_KEY_GOES_HERE');
+
 class react_native_minimal extends Component {
   render() {
     return (
@@ -27,7 +30,14 @@ class react_native_minimal extends Component {
   }
 
   onPress() {
-    console.log('gp1')
+    analytics.track({
+      userId: '019mr8mf4r',
+      event: 'Item Purchased',
+      properties: {
+        revenue: 39.95,
+        shippingMethod: '2-day'
+      }
+    })
   }
 }
 
