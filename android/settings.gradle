@@ -1,5 +1,5 @@
 rootProject.name = 'react_native_minimal'
-include ':react-native-video'
-project(':react-native-video').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-video/android')
+include ':react-native-video-exoplayer'
+project(':react-native-video-exoplayer').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-video/android-exoplayer')
 
 include ':app'
