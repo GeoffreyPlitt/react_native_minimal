@@ -5,41 +5,36 @@ import {
   View
 } from 'react-native';
 import Video from 'react-native-video'
+import Spinner from 'react-native-loading-spinner-overlay'
 
 export default class Main extends Component {
+
+  constructor(props) {
+    super()
+    // Initially:
+    // 1) Don't load video yet
+    // 2) show spinner at start
+    this.state = {
+      showSpinner: true,
+      loadVideo: false
+    }
+  }
+
   componentDidMount() {
-    this.player.seek(0)
-  }
-
-  loadStart() {
-    console.log('loadStart', arguments)
-  }
-
-  setDuration() {
-    console.log('setDuration', arguments)
+    // Then after ONE SECOND:
+    setTimeout(() => {
+      this.setState({loadVideo: true}) // start loading the video
+    }, 1000)
   }
 
   setTime() {
-    console.log('setTime', arguments)
+    // Finally, when the first progress update happens, turn off the spinner.
+    this.setState({showSpinner: false})
   }
 
-  onEnd() {
-    console.log('onEnd', arguments)
-  }
-
-  videoError() {
-    console.log('videoError', arguments)
-  }
-
-  onBuffer() {
-    console.log('onBuffer', arguments)
-  }
-
-  onTimedMetadata() {
-    console.log('onTimedMetadata', arguments)
-  }
-
-  render() {
+  renderVideo() {
+    if(!this.state.loadVideo) return null
+    // else
     return (
       <Video source={{uri: "https://media.w3.org/2010/05/bunny/trailer.mp4"}}   // Can be a URL or a local file.
          ref={(ref) => {
@@ -54,15 +49,18 @@ export default class Main extends Component {
          playInBackground={false}                // Audio continues to play when app entering background.
          playWhenInactive={false}                // [iOS] Video continues to play when control or notification center are shown.
          progressUpdateInterval={250.0}          // [iOS] Interval to fire onProgress (default to ~250ms)
-         onLoadStart={this.loadStart}            // Callback when video starts to load
-         onLoad={this.setDuration}               // Callback when video loads
-         onProgress={this.setTime}               // Callback every ~250ms with currentTime
-         onEnd={this.onEnd}                      // Callback when playback finishes
-         onError={this.videoError}               // Callback when video cannot be loaded
-         onBuffer={this.onBuffer}                // Callback when remote video is buffering
-         onTimedMetadata={this.onTimedMetadata}  // Callback when the stream receive some metadata
-         style={styles.backgroundVideo}
+         onProgress={ (e) => this.setTime(e) }               // Callback every ~250ms with currentTime
+         style={styles.video}
       />
+    )
+  }
+
+  render() {
+    return (
+      <View style={{ flex: 1 }}>
+        <Spinner visible={this.state.showSpinner} textContent={"Loading..."} textStyle={{color: '#FFF'}} />
+        { this.renderVideo() }
+      </View>
     )
   }
 }
@@ -72,20 +70,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#000000',
+    color: '#000000',
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-  backgroundVideo: {
+  video: {
     position: 'absolute',
+    backgroundColor: '#000000',
+    color: '#000000',
     top: 0,
     left: 0,
     bottom: 0,
